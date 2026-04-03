@@ -1,0 +1,127 @@
+// Prisma Schema — Mini Marketplace
+// Documentación: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────
+// Enum: roles de usuario en el sistema
+// ─────────────────────────────────────────
+enum Rol {
+  COMPRADOR
+  VENDEDOR
+}
+
+// ─────────────────────────────────────────
+// Enum: estados posibles de una orden
+// ─────────────────────────────────────────
+enum EstadoOrden {
+  PENDIENTE
+  PAGADA
+  CANCELADA
+}
+
+// ─────────────────────────────────────────
+// User — Representa a cualquier usuario registrado.
+// Un usuario puede ser comprador o vendedor.
+// Un vendedor puede tener múltiples productos.
+// ─────────────────────────────────────────
+model User {
+  id        Int      @id @default(autoincrement())
+  nombre    String
+  email     String   @unique
+  password  String   // hash bcrypt, nunca texto plano
+  rol       Rol      @default(COMPRADOR)
+  createdAt DateTime @default(now())
+
+  // Relaciones
+  products  Product[]   // productos publicados (solo si rol = VENDEDOR)
+  cartItems CartItem[]  // items en su carrito actual
+  orders    Order[]     // historial de órdenes
+}
+
+// ─────────────────────────────────────────
+// Product — Artículo publicado por un vendedor.
+// Solo usuarios con rol VENDEDOR pueden crear productos.
+// ─────────────────────────────────────────
+model Product {
+  id          Int      @id @default(autoincrement())
+  nombre      String
+  descripcion String
+  precio      Float
+  stock       Int      @default(0)
+  imageUrl    String?  // URL de imagen (opcional; el frontend muestra placeholder si es null)
+  createdAt   DateTime @default(now())
+
+  // Relación con el vendedor (User con rol VENDEDOR)
+  vendedorId  Int
+  vendedor    User     @relation(fields: [vendedorId], references: [id])
+
+  // Relaciones inversas
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+}
+
+// ─────────────────────────────────────────
+// CartItem — Representa un producto dentro
+// del carrito activo de un usuario.
+// Se elimina al completar o cancelar el checkout.
+// ─────────────────────────────────────────
+model CartItem {
+  id        Int  @id @default(autoincrement())
+  cantidad  Int  @default(1)
+
+  // Relación con el usuario dueño del carrito
+  userId    Int
+  user      User    @relation(fields: [userId], references: [id])
+
+  // Relación con el producto agregado
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+
+  // Un usuario no puede tener el mismo producto dos veces en el carrito
+  @@unique([userId, productId])
+}
+
+// ─────────────────────────────────────────
+// Order — Registro de un checkout completado.
+// Snapshot del carrito al momento de comprar.
+// ─────────────────────────────────────────
+model Order {
+  id        Int         @id @default(autoincrement())
+  total     Float
+  estado    EstadoOrden @default(PENDIENTE)
+  createdAt DateTime    @default(now())
+
+  // Relación con el comprador
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id])
+
+  // Items que formaban parte de esta orden
+  items     OrderItem[]
+}
+
+// ─────────────────────────────────────────
+// OrderItem — Línea de detalle dentro de una Order.
+// Guarda el precio al momento de la compra para
+// evitar que cambios futuros alteren el historial.
+// ─────────────────────────────────────────
+model OrderItem {
+  id            Int     @id @default(autoincrement())
+  cantidad      Int
+  precioUnitario Float  // precio capturado al momento de la compra
+
+  // Relación con la orden padre
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+
+  // Relación con el producto comprado
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+}
