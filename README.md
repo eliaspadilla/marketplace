@@ -12,7 +12,7 @@ Mini marketplace web construido como proyecto formativo para aprender a usar Cla
 
 | Capa | Tecnología |
 |---|---|
-| Backend | Node.js + Express |
+| Backend | Node.js 18 + Express |
 | ORM | Prisma |
 | Base de datos | PostgreSQL (Neon Free Tier) |
 | Autenticación | JWT + bcrypt |
@@ -25,10 +25,10 @@ Mini marketplace web construido como proyecto formativo para aprender a usar Cla
 
 ## Funcionalidades
 
-- Registro y login de usuarios con roles (comprador / vendedor)
+- Registro y login de usuarios con roles (`COMPRADOR` / `VENDEDOR`)
 - Listado público de productos con búsqueda en tiempo real
 - Detalle de producto con selector de cantidad
-- Carrito de compras (agregar, modificar cantidad, eliminar, vaciar)
+- Carrito de compras: agregar, modificar cantidad, eliminar, vaciar
 - Checkout simulado con confirmación de orden
 - Panel de vendedor: CRUD completo de productos
 - Rutas protegidas por sesión y por rol
@@ -40,7 +40,8 @@ Mini marketplace web construido como proyecto formativo para aprender a usar Cla
 ### Requisitos previos
 
 - Node.js 18+
-- Una base de datos PostgreSQL (o cuenta en [Neon](https://neon.tech))
+- PostgreSQL (local o cuenta gratuita en [Neon](https://neon.tech))
+- npm 9+
 
 ### 1. Clonar el repositorio
 
@@ -65,6 +66,7 @@ JWT_SECRET="genera-una-cadena-larga-y-aleatoria"
 JWT_EXPIRES_IN="7d"
 PORT=4000
 NODE_ENV="development"
+FRONTEND_URL="http://localhost:5173"
 ```
 
 Para generar un `JWT_SECRET` seguro:
@@ -83,8 +85,8 @@ npm run db:seed      # carga usuarios y productos de prueba
 Iniciar el servidor:
 
 ```bash
-npm run dev          # desarrollo con hot-reload
-npm start            # producción
+npm run dev    # desarrollo con hot-reload (nodemon)
+npm start      # producción
 ```
 
 El backend queda disponible en `http://localhost:4000`.
@@ -132,11 +134,13 @@ El frontend queda disponible en `http://localhost:5173`.
 |---|---|---|
 | `VITE_API_URL` | URL base de la API del backend | `http://localhost:4000/api` |
 
-> **Importante:** las variables `VITE_*` se incrustan en el bundle durante el build. En producción deben estar configuradas en Render antes de desplegar.
+> **Importante:** las variables `VITE_*` se incrustan en el bundle durante el build. En producción deben estar configuradas en Render **antes** de desplegar.
 
 ---
 
 ## Cuentas de prueba
+
+Generadas por el seed (`npm run db:seed`):
 
 | Email | Password | Rol |
 |---|---|---|
@@ -147,38 +151,50 @@ El frontend queda disponible en `http://localhost:5173`.
 
 ## Endpoints de la API
 
+Base URL producción: `https://marketplace-wm34.onrender.com/api`
+
 ### Autenticación
+
 | Método | Ruta | Acceso | Descripción |
 |---|---|---|---|
-| POST | `/api/auth/register` | Público | Crear cuenta |
-| POST | `/api/auth/login` | Público | Iniciar sesión |
-| GET | `/api/auth/me` | Autenticado | Perfil del usuario |
+| POST | `/auth/register` | Público | Crear cuenta |
+| POST | `/auth/login` | Público | Iniciar sesión → devuelve JWT |
+| GET | `/auth/me` | Autenticado | Perfil del usuario actual |
 
 ### Productos
+
 | Método | Ruta | Acceso | Descripción |
 |---|---|---|---|
-| GET | `/api/products` | Público | Listar productos (`?search=`) |
-| GET | `/api/products/:id` | Público | Detalle de producto |
-| GET | `/api/products/mis-productos` | Vendedor | Productos del vendedor |
-| POST | `/api/products` | Vendedor | Crear producto |
-| PUT | `/api/products/:id` | Vendedor | Actualizar producto |
-| DELETE | `/api/products/:id` | Vendedor | Eliminar producto |
+| GET | `/products` | Público | Listar productos (`?search=término`) |
+| GET | `/products/:id` | Público | Detalle de producto |
+| GET | `/products/mis-productos` | Vendedor | Productos del vendedor autenticado |
+| POST | `/products` | Vendedor | Crear producto |
+| PUT | `/products/:id` | Vendedor | Actualizar producto |
+| DELETE | `/products/:id` | Vendedor | Eliminar producto |
 
 ### Carrito
+
 | Método | Ruta | Acceso | Descripción |
 |---|---|---|---|
-| GET | `/api/cart` | Autenticado | Ver carrito con total |
-| POST | `/api/cart` | Autenticado | Agregar producto |
-| PUT | `/api/cart/:productId` | Autenticado | Cambiar cantidad |
-| DELETE | `/api/cart/:productId` | Autenticado | Eliminar item |
-| DELETE | `/api/cart` | Autenticado | Vaciar carrito |
+| GET | `/cart` | Autenticado | Ver carrito con total calculado |
+| POST | `/cart` | Autenticado | Agregar producto al carrito |
+| PUT | `/cart/:productId` | Autenticado | Cambiar cantidad de un item |
+| DELETE | `/cart/:productId` | Autenticado | Eliminar item del carrito |
+| DELETE | `/cart` | Autenticado | Vaciar carrito completo |
 
 ### Órdenes
+
 | Método | Ruta | Acceso | Descripción |
 |---|---|---|---|
-| POST | `/api/orders` | Autenticado | Crear orden (checkout) |
-| GET | `/api/orders` | Autenticado | Historial de órdenes |
-| GET | `/api/orders/:id` | Autenticado | Detalle de orden |
+| POST | `/orders` | Autenticado | Crear orden (checkout) |
+| GET | `/orders` | Autenticado | Historial de órdenes del usuario |
+| GET | `/orders/:id` | Autenticado | Detalle de una orden |
+
+### Sistema
+
+| Método | Ruta | Acceso | Descripción |
+|---|---|---|---|
+| GET | `/health` | Público | Estado del servidor |
 
 ---
 
@@ -207,19 +223,19 @@ marketplace/
 │   │   │   └── order.routes.js
 │   │   ├── lib/
 │   │   │   └── prisma.js            # Singleton del cliente Prisma
-│   │   └── app.js                   # Configuración de Express
-│   ├── server.js                    # Punto de entrada
+│   │   └── app.js                   # Configuración de Express y CORS
+│   ├── server.js                    # Punto de entrada HTTP
 │   ├── .env.example
 │   └── package.json
 │
 └── frontend/
     ├── public/
-    │   └── placeholder.jpg
+    │   └── placeholder.jpg          # Imagen por defecto para productos sin imagen
     ├── src/
     │   ├── api/
-    │   │   └── client.js            # Axios con interceptor de token
+    │   │   └── client.js            # Axios con interceptor de token JWT
     │   ├── context/
-    │   │   └── AuthContext.jsx      # Estado global de sesión
+    │   │   └── AuthContext.jsx      # Estado global de sesión (React Context)
     │   ├── components/
     │   │   ├── Navbar.jsx
     │   │   ├── ProductCard.jsx
@@ -232,37 +248,11 @@ marketplace/
     │   │   ├── CartPage.jsx
     │   │   ├── CheckoutPage.jsx
     │   │   └── SellerDashboardPage.jsx
-    │   ├── App.jsx                  # Definición de rutas
-    │   └── main.jsx                 # Punto de entrada React
+    │   ├── App.jsx                  # Definición de rutas (React Router v6)
+    │   └── main.jsx                 # Punto de entrada React + Tailwind
     ├── .env.example
     └── package.json
 ```
-
----
-
-## Despliegue en Render
-
-### Backend (Web Service)
-
-| Campo | Valor |
-|---|---|
-| Root Directory | `backend` |
-| Build Command | `npm install && npm run build` |
-| Start Command | `node server.js` |
-
-Variables de entorno requeridas: `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `NODE_ENV`, `FRONTEND_URL`.
-
-### Frontend (Static Site)
-
-| Campo | Valor |
-|---|---|
-| Root Directory | `frontend` |
-| Build Command | `npm install && npm run build` |
-| Publish Directory | `dist` |
-
-Variables de entorno requeridas: `VITE_API_URL`.
-
-> **Orden de despliegue:** primero el backend, luego el frontend. La URL del backend debe estar lista antes de configurar `VITE_API_URL`.
 
 ---
 
@@ -276,10 +266,39 @@ User ──────────────< Product
   └──────────────< Order ──────< OrderItem >── Product
 ```
 
-- Un **User** con rol `VENDEDOR` puede tener muchos **Products**
-- Un **User** puede tener muchos **CartItems** (su carrito activo)
-- Un **User** puede tener muchas **Orders** (historial de compras)
-- Una **Order** tiene muchos **OrderItems** que capturan precio y cantidad al momento de la compra
+| Modelo | Descripción |
+|---|---|
+| `User` | Usuario registrado con rol `COMPRADOR` o `VENDEDOR` |
+| `Product` | Artículo publicado por un `VENDEDOR`, con stock e imagen opcional |
+| `CartItem` | Producto en el carrito activo de un usuario (único por usuario+producto) |
+| `Order` | Snapshot del carrito al momento del checkout. Estados: `PENDIENTE`, `PAGADA`, `CANCELADA` |
+| `OrderItem` | Línea de detalle de una orden; guarda `precioUnitario` al momento de la compra |
+
+---
+
+## Despliegue en Render
+
+### Backend (Web Service)
+
+| Campo | Valor |
+|---|---|
+| Root Directory | `backend` |
+| Build Command | `npm install && npx prisma generate` |
+| Start Command | `node server.js` |
+
+Variables de entorno requeridas en Render: `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRES_IN`, `NODE_ENV=production`, `FRONTEND_URL`.
+
+### Frontend (Static Site)
+
+| Campo | Valor |
+|---|---|
+| Root Directory | `frontend` |
+| Build Command | `npm install && npm run build` |
+| Publish Directory | `dist` |
+
+Variables de entorno requeridas en Render: `VITE_API_URL`.
+
+> **Orden de despliegue:** primero el backend, luego el frontend. La URL del backend debe estar lista antes de configurar `VITE_API_URL`.
 
 ---
 
