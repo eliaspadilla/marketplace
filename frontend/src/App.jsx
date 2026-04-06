@@ -19,6 +19,7 @@ import ProductDetailPage    from './pages/ProductDetailPage';
 import CartPage             from './pages/CartPage';
 import CheckoutPage         from './pages/CheckoutPage';
 import SellerDashboardPage  from './pages/SellerDashboardPage';
+import OrdersPage           from './pages/OrdersPage';
 
 export default function App() {
   return (
@@ -40,6 +41,10 @@ export default function App() {
               } />
               <Route path="/checkout" element={
                 <ProtectedRoute><CheckoutPage /></ProtectedRoute>
+              } />
+
+              <Route path="/ordenes" element={
+                <ProtectedRoute><OrdersPage /></ProtectedRoute>
               } />
 
               {/* Protegida: solo VENDEDOR */}

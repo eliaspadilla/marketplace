@@ -15,49 +15,63 @@ export default function Navbar() {
     navigate('/');
   }
 
+  // Color dinámico según estado de sesión y rol
+  const navBg      = !isAuthenticated ? 'bg-green-700'  : isVendedor ? 'bg-yellow-500'  : 'bg-orange-600';
+  const navText    = !isAuthenticated ? 'text-white'     : isVendedor ? 'text-gray-900'  : 'text-white';
+  const linkHover  = !isAuthenticated ? 'hover:text-green-200'  : isVendedor ? 'hover:text-yellow-900' : 'hover:text-orange-200';
+  const mutedText  = !isAuthenticated ? 'text-green-300' : isVendedor ? 'text-yellow-700' : 'text-orange-200';
+  const btnClass   = !isAuthenticated
+    ? 'bg-green-500 hover:bg-green-400 text-white'
+    : isVendedor
+      ? 'bg-yellow-400 hover:bg-yellow-300 text-gray-900'
+      : 'bg-orange-500 hover:bg-orange-400 text-white';
+
   return (
-    <nav className="bg-green-700 text-white shadow-md">
+    <nav className={`${navBg} ${navText} shadow-md transition-colors duration-300`}>
       <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo / home */}
-        <Link to="/" className="text-xl font-bold tracking-tight hover:text-green-200">
+        <Link to="/" className={`text-xl font-bold tracking-tight ${linkHover}`}>
           MercadoClaudeOnline
         </Link>
 
         <div className="flex items-center gap-4 text-sm">
-          <Link to="/" className="hover:text-green-200">
+          <Link to="/" className={linkHover}>
             Inicio
           </Link>
 
           {isAuthenticated ? (
             <>
-              {/* Link al carrito solo para compradores o cualquier usuario */}
               {!isVendedor && (
-                <Link to="/carrito" className="hover:text-green-200">
-                  Carrito
-                </Link>
+                <>
+                  <Link to="/carrito" className={linkHover}>
+                    Carrito
+                  </Link>
+                  <Link to="/ordenes" className={linkHover}>
+                    Mis órdenes
+                  </Link>
+                </>
               )}
 
-              {/* Panel de vendedor */}
               {isVendedor && (
-                <Link to="/vendedor" className="hover:text-green-200">
+                <Link to="/vendedor" className={linkHover}>
                   Mi Panel
                 </Link>
               )}
 
-              <span className="text-green-300 hidden sm:inline">
+              <span className={`${mutedText} hidden sm:inline`}>
                 {user.nombre}
               </span>
 
               <button
                 onClick={handleLogout}
-                className="bg-green-500 hover:bg-green-400 px-3 py-1 rounded transition"
+                className={`${btnClass} px-3 py-1 rounded transition`}
               >
                 Salir
               </button>
             </>
           ) : (
             <>
-              <Link to="/login" className="hover:text-green-200">
+              <Link to="/login" className={linkHover}>
                 Entrar
               </Link>
               <Link
