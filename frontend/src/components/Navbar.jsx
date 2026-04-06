@@ -49,9 +49,14 @@ export default function Navbar() {
               )}
 
               {isVendedor && (
-                <Link to="/vendedor" className={linkHover}>
-                  Mi Panel
-                </Link>
+                <>
+                  <Link to="/vendedor" className={linkHover}>
+                    Mi Panel
+                  </Link>
+                  <Link to="/estadisticas" className={linkHover}>
+                    Estadísticas
+                  </Link>
+                </>
               )}
 
               <span className={`${mutedText} hidden sm:inline`}>

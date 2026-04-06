@@ -20,6 +20,7 @@ import CartPage             from './pages/CartPage';
 import CheckoutPage         from './pages/CheckoutPage';
 import SellerDashboardPage  from './pages/SellerDashboardPage';
 import OrdersPage           from './pages/OrdersPage';
+import StatsPage            from './pages/StatsPage';
 
 export default function App() {
   return (
@@ -47,10 +48,15 @@ export default function App() {
                 <ProtectedRoute><OrdersPage /></ProtectedRoute>
               } />
 
-              {/* Protegida: solo VENDEDOR */}
+              {/* Protegidas: solo VENDEDOR */}
               <Route path="/vendedor" element={
                 <ProtectedRoute requiredRole="VENDEDOR">
                   <SellerDashboardPage />
+                </ProtectedRoute>
+              } />
+              <Route path="/estadisticas" element={
+                <ProtectedRoute requiredRole="VENDEDOR">
+                  <StatsPage />
                 </ProtectedRoute>
               } />
 
