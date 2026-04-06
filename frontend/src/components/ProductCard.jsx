@@ -4,8 +4,15 @@
  */
 
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function ProductCard({ producto }) {
+  const { isAuthenticated, isVendedor } = useAuth();
+  const btnColor = !isAuthenticated
+    ? 'bg-green-600 hover:bg-green-700'
+    : isVendedor
+      ? 'bg-yellow-500 hover:bg-yellow-400 text-gray-900'
+      : 'bg-orange-600 hover:bg-orange-700';
   return (
     <div className="bg-white rounded-xl shadow hover:shadow-md transition overflow-hidden flex flex-col">
       {/* Imagen */}
@@ -40,7 +47,7 @@ export default function ProductCard({ producto }) {
 
         <Link
           to={`/productos/${producto.id}`}
-          className="mt-3 block text-center bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg transition"
+          className={`mt-3 block text-center text-white text-sm py-2 rounded-lg transition ${btnColor}`}
         >
           Ver detalle
         </Link>

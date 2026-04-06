@@ -12,6 +12,11 @@ export default function ProductDetailPage() {
   const { id }       = useParams();
   const navigate     = useNavigate();
   const { isAuthenticated, isVendedor } = useAuth();
+  const btnColor = !isAuthenticated
+    ? 'bg-green-600 hover:bg-green-700'
+    : isVendedor
+      ? 'bg-yellow-500 hover:bg-yellow-400 text-gray-900'
+      : 'bg-orange-600 hover:bg-orange-700';
 
   const [producto, setProducto] = useState(null);
   const [cantidad, setCantidad] = useState(1);
@@ -133,7 +138,7 @@ export default function ProductDetailPage() {
               <button
                 onClick={handleAgregarCarrito}
                 disabled={adding}
-                className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2 px-6 rounded-lg transition"
+                className={`flex-1 disabled:opacity-60 font-semibold py-2 px-6 rounded-lg transition ${btnColor}`}
               >
                 {adding ? 'Agregando…' : 'Agregar al carrito'}
               </button>
