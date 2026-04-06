@@ -5,10 +5,12 @@
 
 import { useState, useEffect } from 'react';
 import api from '../api/client';
+import { useAuth } from '../context/AuthContext';
 
 const FORM_VACIO = { nombre: '', descripcion: '', precio: '', stock: '', imageUrl: '' };
 
 export default function SellerDashboardPage() {
+  const { user } = useAuth();
   const [productos, setProductos] = useState([]);
   const [loading, setLoading]     = useState(true);
 
@@ -100,6 +102,9 @@ export default function SellerDashboardPage() {
         <div>
           <h1 className="text-2xl font-bold text-gray-800">Mi Panel</h1>
           <p className="text-sm text-gray-500">{productos.length} producto(s) publicado(s)</p>
+          <p className="text-sm font-medium text-yellow-600 mt-1">
+            Hola {user?.nombre}, ¡qué gusto tenerte de vuelta!
+          </p>
         </div>
         <button
           onClick={abrirCrear}

@@ -99,8 +99,8 @@ export default function LoginPage() {
         {/* Credenciales de prueba */}
         <div className="mt-6 p-3 bg-gray-50 rounded-lg text-xs text-gray-500 space-y-1">
           <p className="font-medium text-gray-600">Cuentas de prueba:</p>
-          <p>vendedor@test.com / password123 (vendedor)</p>
-          <p>comprador@test.com / password123 (comprador)</p>
+          <p>vendedor@test.com (vendedor)</p>
+          <p>comprador@test.com (comprador)</p>
         </div>
       </div>
     </div>
