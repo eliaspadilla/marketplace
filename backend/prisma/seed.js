@@ -51,7 +51,7 @@ async function main() {
         descripcion: 'Teclado mecánico retroiluminado, switches azules, ideal para programadores.',
         precio: 89.99,
         stock: 15,
-        imageUrl: null,
+        imageUrl: 'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&q=80',
         vendedorId: vendedor.id,
       },
       {
@@ -59,7 +59,7 @@ async function main() {
         descripcion: 'Monitor Full HD 1080p, 75Hz, panel IPS, ideal para trabajo y gaming.',
         precio: 249.99,
         stock: 8,
-        imageUrl: null,
+        imageUrl: 'https://images.unsplash.com/photo-1527443224154-c4a573d5f5de?w=400&q=80',
         vendedorId: vendedor.id,
       },
       {
@@ -67,7 +67,7 @@ async function main() {
         descripcion: 'Mouse ergonómico inalámbrico con autonomía de 6 meses.',
         precio: 34.99,
         stock: 30,
-        imageUrl: null,
+        imageUrl: 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=400&q=80',
         vendedorId: vendedor.id,
       },
       {
@@ -75,7 +75,7 @@ async function main() {
         descripcion: 'Cámara web 1080p con micrófono integrado, compatible con videollamadas.',
         precio: 59.99,
         stock: 20,
-        imageUrl: null,
+        imageUrl: 'https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=400&q=80',
         vendedorId: vendedor.id,
       },
     ],
