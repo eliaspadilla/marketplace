@@ -6,8 +6,10 @@
 import { useState, useEffect } from 'react';
 import api from '../api/client';
 import ProductCard from '../components/ProductCard';
+import { useAuth } from '../context/AuthContext';
 
 export default function HomePage() {
+  const { user, isAuthenticated } = useAuth();
   const [productos, setProductos] = useState([]);
   const [search, setSearch]       = useState('');
   const [loading, setLoading]     = useState(true);
@@ -45,6 +47,11 @@ export default function HomePage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800">Productos</h1>
         <p className="text-gray-500 mt-1">Encuentra lo que necesitas</p>
+        {isAuthenticated && (
+          <p className="text-green-700 font-medium mt-2">
+            Hola {user.nombre}, ¡qué gusto tenerte de vuelta!
+          </p>
+        )}
       </div>
 
       {/* Búsqueda */}

@@ -9,6 +9,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 
 import HomePage             from './pages/HomePage';
@@ -25,7 +26,7 @@ export default function App() {
       <BrowserRouter>
         <div className="min-h-screen bg-gray-50">
           <Navbar />
-          <main>
+          <main className="min-h-screen">
             <Routes>
               {/* Públicas */}
               <Route path="/"               element={<HomePage />} />
@@ -52,6 +53,7 @@ export default function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
+          <Footer />
         </div>
       </BrowserRouter>
     </AuthProvider>
