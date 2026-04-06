@@ -108,7 +108,7 @@ export default function SellerDashboardPage() {
         </div>
         <button
           onClick={abrirCrear}
-          className="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition"
+          className="bg-yellow-500 hover:bg-yellow-400 text-gray-900 text-sm font-semibold px-4 py-2 rounded-lg transition"
         >
           + Nuevo producto
         </button>
@@ -144,7 +144,7 @@ export default function SellerDashboardPage() {
                     <p className="font-medium text-gray-800">{p.nombre}</p>
                     <p className="text-xs text-gray-400 truncate max-w-xs">{p.descripcion}</p>
                   </td>
-                  <td className="px-4 py-3 text-right font-semibold text-green-700">
+                  <td className="px-4 py-3 text-right font-semibold text-yellow-600">
                     ${p.precio.toFixed(2)}
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -157,7 +157,7 @@ export default function SellerDashboardPage() {
                   <td className="px-4 py-3 text-right space-x-2">
                     <button
                       onClick={() => abrirEditar(p)}
-                      className="text-green-600 hover:text-green-800 font-medium"
+                      className="text-yellow-600 hover:text-yellow-800 font-medium"
                     >
                       Editar
                     </button>
@@ -206,7 +206,7 @@ export default function SellerDashboardPage() {
                     required={required}
                     min={type === 'number' ? 0 : undefined}
                     step={name === 'precio' ? '0.01' : undefined}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
                   />
                 </div>
               ))}
@@ -219,7 +219,7 @@ export default function SellerDashboardPage() {
                   onChange={handleChange}
                   required
                   rows={3}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 resize-none"
                 />
               </div>
 
@@ -234,7 +234,7 @@ export default function SellerDashboardPage() {
                 <button
                   type="submit"
                   disabled={guardando}
-                  className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2 rounded-lg text-sm transition"
+                  className="flex-1 bg-yellow-500 hover:bg-yellow-400 disabled:opacity-60 text-gray-900 font-semibold py-2 rounded-lg text-sm transition"
                 >
                   {guardando ? 'Guardando…' : 'Guardar'}
                 </button>
