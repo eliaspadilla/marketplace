@@ -65,7 +65,7 @@ export default function ProductDetailPage() {
     return (
       <div className="text-center py-20">
         <p className="text-gray-500">{error}</p>
-        <Link to="/" className="text-indigo-600 hover:underline mt-2 inline-block">
+        <Link to="/" className="text-green-600 hover:underline mt-2 inline-block">
           Volver al inicio
         </Link>
       </div>
@@ -74,7 +74,7 @@ export default function ProductDetailPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
-      <Link to="/" className="text-sm text-indigo-600 hover:underline mb-6 inline-block">
+      <Link to="/" className="text-sm text-green-600 hover:underline mb-6 inline-block">
         ← Volver al listado
       </Link>
 
@@ -99,7 +99,7 @@ export default function ProductDetailPage() {
           </p>
 
           <div className="mt-6 flex items-center gap-4">
-            <span className="text-3xl font-bold text-indigo-700">
+            <span className="text-3xl font-bold text-green-700">
               ${producto.precio.toFixed(2)}
             </span>
             <span className={`text-sm px-3 py-1 rounded-full ${
@@ -133,7 +133,7 @@ export default function ProductDetailPage() {
               <button
                 onClick={handleAgregarCarrito}
                 disabled={adding}
-                className="flex-1 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-semibold py-2 px-6 rounded-lg transition"
+                className="flex-1 bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2 px-6 rounded-lg transition"
               >
                 {adding ? 'Agregando…' : 'Agregar al carrito'}
               </button>
@@ -154,7 +154,7 @@ export default function ProductDetailPage() {
 
           {!isAuthenticated && producto.stock > 0 && !isVendedor && (
             <p className="mt-4 text-sm text-gray-500">
-              <Link to="/login" className="text-indigo-600 hover:underline">
+              <Link to="/login" className="text-green-600 hover:underline">
                 Inicia sesión
               </Link>{' '}
               para agregar al carrito.

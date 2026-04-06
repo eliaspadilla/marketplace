@@ -60,7 +60,7 @@ export default function LoginPage() {
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
               placeholder="tu@email.com"
             />
           </div>
@@ -75,7 +75,7 @@ export default function LoginPage() {
               value={form.password}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
               placeholder="••••••••"
             />
           </div>
@@ -83,7 +83,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-semibold py-2 rounded-lg transition"
+            className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2 rounded-lg transition"
           >
             {loading ? 'Entrando…' : 'Entrar'}
           </button>
@@ -91,7 +91,7 @@ export default function LoginPage() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           ¿No tienes cuenta?{' '}
-          <Link to="/register" className="text-indigo-600 hover:underline font-medium">
+          <Link to="/register" className="text-green-600 hover:underline font-medium">
             Regístrate
           </Link>
         </p>

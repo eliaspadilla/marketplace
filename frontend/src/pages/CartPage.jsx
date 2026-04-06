@@ -68,7 +68,7 @@ export default function CartPage() {
       <div className="text-center py-24">
         <p className="text-4xl mb-4">🛒</p>
         <p className="text-gray-500 text-lg">Tu carrito está vacío</p>
-        <Link to="/" className="mt-4 inline-block text-indigo-600 hover:underline">
+        <Link to="/" className="mt-4 inline-block text-green-600 hover:underline">
           Explorar productos
         </Link>
       </div>
@@ -115,7 +115,7 @@ export default function CartPage() {
             </div>
 
             {/* Subtotal */}
-            <p className="font-semibold text-indigo-700 w-20 text-right">
+            <p className="font-semibold text-green-700 w-20 text-right">
               ${(item.product.precio * item.cantidad).toFixed(2)}
             </p>
 
@@ -135,11 +135,11 @@ export default function CartPage() {
       <div className="mt-6 bg-white rounded-xl shadow-sm p-5">
         <div className="flex justify-between text-lg font-bold text-gray-800 mb-4">
           <span>Total</span>
-          <span className="text-indigo-700">${total.toFixed(2)}</span>
+          <span className="text-green-700">${total.toFixed(2)}</span>
         </div>
         <button
           onClick={() => navigate('/checkout')}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition"
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition"
         >
           Proceder al pago
         </button>

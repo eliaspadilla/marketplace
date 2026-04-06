@@ -26,7 +26,7 @@ export default function ProductCard({ producto }) {
         </p>
 
         <div className="mt-auto pt-3 flex items-center justify-between">
-          <span className="text-indigo-700 font-bold text-lg">
+          <span className="text-green-700 font-bold text-lg">
             ${producto.precio.toFixed(2)}
           </span>
           <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -40,7 +40,7 @@ export default function ProductCard({ producto }) {
 
         <Link
           to={`/productos/${producto.id}`}
-          className="mt-3 block text-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm py-2 rounded-lg transition"
+          className="mt-3 block text-center bg-green-600 hover:bg-green-700 text-white text-sm py-2 rounded-lg transition"
         >
           Ver detalle
         </Link>

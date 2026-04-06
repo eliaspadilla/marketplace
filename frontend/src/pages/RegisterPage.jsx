@@ -57,7 +57,7 @@ export default function RegisterPage() {
               value={form.nombre}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
               placeholder="Tu nombre"
             />
           </div>
@@ -70,7 +70,7 @@ export default function RegisterPage() {
               value={form.email}
               onChange={handleChange}
               required
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
               placeholder="tu@email.com"
             />
           </div>
@@ -84,7 +84,7 @@ export default function RegisterPage() {
               onChange={handleChange}
               required
               minLength={6}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
               placeholder="Mínimo 6 caracteres"
             />
           </div>
@@ -97,8 +97,8 @@ export default function RegisterPage() {
                   key={rol}
                   className={`flex items-center justify-center gap-2 border-2 rounded-lg p-3 cursor-pointer transition text-sm font-medium ${
                     form.rol === rol
-                      ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
-                      : 'border-gray-200 text-gray-600 hover:border-indigo-300'
+                      ? 'border-green-500 bg-green-50 text-green-700'
+                      : 'border-gray-200 text-gray-600 hover:border-green-300'
                   }`}
                 >
                   <input
@@ -118,7 +118,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:opacity-60 text-white font-semibold py-2 rounded-lg transition"
+            className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-2 rounded-lg transition"
           >
             {loading ? 'Creando cuenta…' : 'Crear cuenta'}
           </button>
@@ -126,7 +126,7 @@ export default function RegisterPage() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           ¿Ya tienes cuenta?{' '}
-          <Link to="/login" className="text-indigo-600 hover:underline font-medium">
+          <Link to="/login" className="text-green-600 hover:underline font-medium">
             Inicia sesión
           </Link>
         </p>
