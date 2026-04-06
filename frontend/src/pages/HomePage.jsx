@@ -15,6 +15,11 @@ export default function HomePage() {
   const [loading, setLoading]     = useState(true);
   const [error, setError]         = useState('');
 
+  // Registrar visita una sola vez al montar la página
+  useEffect(() => {
+    api.post('/visits').catch(() => {});
+  }, []);
+
   useEffect(() => {
     const controller = new AbortController();
 

@@ -108,6 +108,15 @@ model Order {
 }
 
 // ─────────────────────────────────────────
+// VisitCounter — Contador global de visitas.
+// Siempre hay exactamente una fila (id = 1).
+// ─────────────────────────────────────────
+model VisitCounter {
+  id    Int @id @default(autoincrement())
+  count Int @default(0)
+}
+
+// ─────────────────────────────────────────
 // OrderItem — Línea de detalle dentro de una Order.
 // Guarda el precio al momento de la compra para
 // evitar que cambios futuros alteren el historial.

@@ -24,11 +24,13 @@ const authRoutes    = require('./routes/auth.routes');
 const productRoutes = require('./routes/product.routes');
 const cartRoutes    = require('./routes/cart.routes');
 const orderRoutes   = require('./routes/order.routes');
+const visitRoutes   = require('./routes/visit.routes');
 
 app.use('/api/auth',     authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart',     cartRoutes);
 app.use('/api/orders',   orderRoutes);
+app.use('/api/visits',   visitRoutes);
 
 // ── Health check ─────────────────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
