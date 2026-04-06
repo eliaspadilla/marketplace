@@ -135,11 +135,11 @@ export default function CartPage() {
       <div className="mt-6 bg-white rounded-xl shadow-sm p-5">
         <div className="flex justify-between text-lg font-bold text-gray-800 mb-4">
           <span>Total</span>
-          <span className="text-green-700">${total.toFixed(2)}</span>
+          <span className="text-orange-600">${total.toFixed(2)}</span>
         </div>
         <button
           onClick={() => navigate('/checkout')}
-          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition"
+          className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 rounded-xl transition"
         >
           Proceder al pago
         </button>
